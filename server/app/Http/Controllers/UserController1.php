@@ -15,7 +15,7 @@ class UserController1 {
         $user->first = $req->input('first');
         $user->last = $req->input('last');
         $user->email = $req->input('email');
-        $user->role = $req->input('role');
+        //$user->role = $req->input('role');
         $user->password = Hash::make($req->input('password'));
         $user->save();
         return $user;
