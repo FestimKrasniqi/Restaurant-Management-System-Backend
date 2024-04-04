@@ -7,8 +7,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use OpenApi\Annotations as OA;
+
+
 
 class UserController1 {
+   
     function register(Request $req) {
 
      $validator = Validator::make($req->all(),[
@@ -36,14 +40,7 @@ class UserController1 {
      ]);
        
         
-       // $user = new User
-        //$user->first = $req->input('first');
-        //$user->last = $req->input('last');
-        //$user->email = $req->input('email');
-        //$user->role = $req->input('role');
-        //$user->password = Hash::make($req->input('password'));
-        //$user->save();
-        //return $user;
+      
 
         return response()->json([
             'message'=>'Registration successfull',
