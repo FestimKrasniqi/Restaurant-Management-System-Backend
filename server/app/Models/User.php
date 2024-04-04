@@ -23,13 +23,16 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'last'
+        'last',
+        'confirm_password'
     ];
 
    
     protected $hidden = [
         'password',
+        'confirm_password',
         'remember_token',
+
        
     ];
 
