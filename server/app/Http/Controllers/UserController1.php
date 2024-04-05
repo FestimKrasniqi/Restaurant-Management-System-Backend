@@ -51,4 +51,25 @@ class UserController1 {
 
 
     }
+
+
+    function Login(Request $req) {
+
+        $validate = Validator::make($req->all(),[
+         "email" => 'required|email',
+         "password" => 'required'
+        ]);
+
+        if($validate->fails()) {
+            return response()->json(["error"=>$validate->errors()->first()],422);
+        }
+    
+
+        $user = User::where('email',$req->email)->first();
+        if(!$user || !Hash::check($req->password,$user->password)) {
+            return ["error" => "Email or password is incorrect"];
+        }
+        return response()->json(["user" => $user], 200);
+
+    }
 }
