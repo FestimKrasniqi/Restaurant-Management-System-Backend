@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
+
+
 
 
 
@@ -44,7 +48,9 @@ class UserController1 {
 
         return response()->json([
             'message'=>'Registration successfull',
-            'data'=>$user
+            'data'=>$user,
+            'status'=> true,
+            'token'=> $user->createToken("API_TOKEN")->plainTextToken
 
         ],200);
     
@@ -61,15 +67,32 @@ class UserController1 {
         ]);
 
         if($validate->fails()) {
-            return response()->json(["error"=>$validate->errors()->first()],422);
+            return response()->json([
+            "error"=>$validate->errors()->first(),
+            "message"=>'validation error',
+            "status"=> false
+        
+        ],422);
+        }
+
+        if(!Auth::attempt($req->only(["email","password"]))) {
+            return response()->json([
+                "status"=> false,
+                'message'=> "Email or Password is incorrect"
+            ],401);
         }
     
 
         $user = User::where('email',$req->email)->first();
-        if(!$user || !Hash::check($req->password,$user->password)) {
+        /*if(!$user || !Hash::check($req->password,$user->password)) {
             return ["error" => "Email or password is incorrect"];
-        }
-        return response()->json(["user" => $user], 200);
+        }*/
+        return response()->json([
+            "status"=> true,
+            "message"=> "User logged successfully",
+            "token" => $user->createToken("API_TOKEN")->plainTextToken
+
+        ], 200);
 
     }
 }
