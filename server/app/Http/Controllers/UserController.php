@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Validator;
 use OpenApi\Annotations as OA;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
 
 
 
 
 
-class UserController1 {
+
+
+class UserController {
    
     function register(Request $req) {
 
@@ -94,5 +99,57 @@ class UserController1 {
 
         ], 200);
 
+    }
+
+    function Forgot(Request $req) {
+        $validate = Validator::make($req->all(),[
+          "email" => "required|email|exists:users",
+        ]);
+
+        if($validate->fails()) {
+            return response()->json([
+                "error" => $validate->errors()->first(),
+                "message" => "validation error",
+                "status" => false
+            ],422);
+        }
+
+        $token = Str::random(64);
+
+        $status = Password::sendResetLink($req->only('email'));
+
+        return $status === Password::RESET_LINK_SENT
+                    ? response()->json(['message' => 'Reset link sent to your email'], 200)
+                    : response()->json(['message' => 'Unable to send reset link'], 400);
+    
+    }
+
+    function Reset(Request $req) {
+        $validate = Validator::make($req->all(),[
+            'email' => 'required|email',
+            'token' => 'required|string',
+            'password' => 'required|confirmed|min:8',
+            'confirm_password' => 'required|same:password'
+        ]);
+
+        if($validate->fails()) {
+            return response()->json([
+                "error" => $validate->errors()->first(),
+                "message" => "validation error",
+                "status" => false
+            ],422);
+        }
+
+        $status = Password::reset(
+            $req->only('email', 'password', 'confirm_password', 'token'),
+            function ($user, $password) {
+                $user->password = bcrypt($password);
+                $user->save();
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+                    ? response()->json(['status' => __($status)])
+                    : response()->json(['status' => __($status)], 400);
     }
 }

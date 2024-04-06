@@ -2,13 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController1;
+use App\Http\Controllers\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/SignUp',[UserController1::class,'register']);
+Route::post('/SignUp',[UserController::class,'register']);
 
-Route::get('/Login',[UserController1::class,'Login']);
+Route::post('/Login',[UserController::class,'Login']);
+
+Route::post('/Forgot-Password',[UserController::class,'Forgot']);
+Route::post('/Reset-Password',[UserController::class,'Reset']);
 
