@@ -15,3 +15,7 @@ Route::post('/Login',[UserController::class,'Login']);
 Route::post('/Forgot-Password',[UserController::class,'Forgot']);
 Route::post('/Reset-Password',[UserController::class,'Reset']);
 
+Route::middleware("auth:sanctum")->group(function (){
+Route::get('/user1',[UserController::class,'User']);
+Route::post('/logout',[UserController::class,'logout']);
+});
