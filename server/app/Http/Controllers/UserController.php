@@ -125,7 +125,7 @@ class UserController{
     $user->notify(new CustomResetPasswordNotification($token));
 
     return response()->json(['message' => 'Reset link sent to your email',
-            "token" => $user->createToken("forgo")->plainTextToken
+            "token" => $user->createToken("forgot")->plainTextToken
 
 ], 200);
 
@@ -169,7 +169,16 @@ class UserController{
     }
 
     public function User() {
-        return Auth::user();
+        if(Auth::check()) {
+            $user = Auth::user();
+
+            if($user->role === 'user') {
+                return response()->json($user,200);
+            }
+        }
+        return response()->json([
+         "error"=>"Unauthorized"
+        ],401);
     }
 
     public function logout(Request $request)
@@ -179,6 +188,20 @@ class UserController{
         return response()->json([
             'message' => 'Success'
         ])->withCookie($cookie);
+    }
+
+    function admin(Request $request) {
+        if(Auth::check()) {
+            $admin = Auth::user();
+            
+            if($admin->role === 'admin') {
+                return response()->json($admin,200);
+            }
+        }
+
+       return response()->json([
+        "error"=>"Unauthorized"
+       ],401);
     }
 
 }
