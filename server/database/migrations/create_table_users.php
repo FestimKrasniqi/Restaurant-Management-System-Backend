@@ -13,6 +13,9 @@ return new class extends Migration
             $table->string('first');
             $table->string('last');
             $table->string('email')->unique();
+            $table->Boolean('active')->default(true);
+            $table->String('address')->nullable();
+            $table->String('phoneNumber')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
