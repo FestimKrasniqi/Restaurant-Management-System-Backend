@@ -90,7 +90,7 @@ class UserController{
     
         
 
-        //$user = User::where('email',$req->email)->first();
+       
         $user = Auth::user();
       
         $token = $user->createToken("API_TOKEN")->plainTextToken;
@@ -99,7 +99,8 @@ class UserController{
         return response()->json([
             "status"=> true,
             "message"=> "User logged successfully",
-            "token" => $token
+            "token" => $token,
+            "role" => $user->role
 
         ], 200)->withCookie($cookie);
 
