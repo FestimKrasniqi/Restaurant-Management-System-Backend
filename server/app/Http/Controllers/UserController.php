@@ -215,7 +215,7 @@ class UserController{
             $user->is_active = $user->active == 1 ? true : false;
         }
 
-        return response()->json(['users' => $users]);
+        return response()->json($users);
     }
 
 }
