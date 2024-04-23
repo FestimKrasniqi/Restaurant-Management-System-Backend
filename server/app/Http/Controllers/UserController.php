@@ -205,4 +205,17 @@ class UserController{
        ],401);
     }
 
+    public function allUsers()
+    {
+       
+        $users = User::all();
+
+        foreach ($users as $user) {
+           
+            $user->is_active = $user->active == 1 ? true : false;
+        }
+
+        return response()->json(['users' => $users]);
+    }
+
 }
