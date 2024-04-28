@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class Admin
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check() || auth()->user()->role !== 'admin') {
+        if(!auth()->check() || auth()->user()->role !== 'user') {
             return response()->json(["Unauthorized" => "You dont have permission to access this route"],401);
         }
         return $next($request);
