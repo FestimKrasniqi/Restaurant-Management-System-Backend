@@ -7,10 +7,8 @@ use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    
+    /*public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
             $table->text('two_factor_secret')
@@ -29,9 +27,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
@@ -42,5 +38,5 @@ return new class extends Migration
                 'two_factor_confirmed_at',
             ] : []));
         });
-    }
+    }*/
 };
