@@ -66,13 +66,13 @@ class MenuController {
 
      $menus = $category->menus;
 
-     return response()->json(['menu' => $menus],200);
+     return response()->json($menus,200);
     }
 
     function allMenu(Request $req) {
         $menus = Menu::with('category')->get();
 
-        return response()->json(['menus'=> $menus],200);
+        return response()->json($menus,200);
     }
 }
 
