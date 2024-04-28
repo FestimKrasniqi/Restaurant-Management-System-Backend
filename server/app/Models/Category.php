@@ -7,21 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 
 class Category extends Model {
-   use hasfactory;
+   use hasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'image_url'
+        'category_name',
+       
 
     ];
+
+    protected $table = 'category';
+
     
-    public function category()
+    public function menus()
     {
         return $this->hasMany(Menu::class);
     }
 
+   
 
 }
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 
 class Menu extends Model {
-   use hasfactory;
+   use hasFactory;
 
     protected $fillable = [
         'name',
@@ -22,6 +22,7 @@ class Menu extends Model {
         return $this->belongsTo(Category::class);
     }
 
+    protected $table = 'menu';
 
 }
 

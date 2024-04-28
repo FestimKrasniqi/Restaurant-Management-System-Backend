@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\UserMiddleware;
-
+use App\Http\Controllers\MenuController;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -23,6 +23,7 @@ Route::middleware("auth:sanctum")->group(function (){
     
     Route::middleware(UserMiddleware::class)->group(function () {
     Route::get('/user1',[UserController::class,'User']);
+    Route::get('/menus/{categoryName}', [MenuController::class, 'getMenuByCategory']);
 });
 
 
@@ -31,6 +32,8 @@ Route::middleware(Admin::class)->group(function () {
 
     Route::get('/admin', [UserController::class, 'admin']);
     Route::get('/users', [UserController::class, 'allUsers']);
+    Route::post('/create-menu',[MenuController::class,'insertMenu']);
+    Route::get('/allMenus',[MenuController::class,'allMenu']);
 });
 });
     
