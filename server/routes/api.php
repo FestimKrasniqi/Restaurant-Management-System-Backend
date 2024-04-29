@@ -38,6 +38,7 @@ Route::middleware(Admin::class)->group(function () {
     Route::post('/create-menu',[MenuController::class,'insertMenu']);
     Route::get('/allMenus',[MenuController::class,'allMenu']);
     Route::delete('/delete-menu/{id}',[MenuController::class,'destroy']);
+    Route::get('/menu/{id}',[MenuController::class,'getMenuById']);
     
    
     

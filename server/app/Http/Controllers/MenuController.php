@@ -74,6 +74,20 @@ class MenuController {
     }
 
 
+    function getMenuById(Request $req,$id) {
+
+     $menu = Menu::with('category')->find($id);
+
+     if(!$menu) {
+        return response()->json(['error' => 'Menu not found'],404);
+     }
+     
+
+     return response()->json($menu,200);
+    }
+
+
+
     function allMenu(Request $req) {
         $menus = Menu::with('category')->get();
 
@@ -87,7 +101,7 @@ class MenuController {
             'name' => 'sometimes|string|max:255',
             'description' => 'sometimes|string',
             'price' => 'sometimes|numeric',
-            'image_url' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            //'image_url' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_name' => 'sometimes|string'
         ]);
     
