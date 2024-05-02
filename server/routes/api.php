@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\StaffController;
 
 
 
@@ -39,7 +40,11 @@ Route::middleware(Admin::class)->group(function () {
     Route::get('/allMenus',[MenuController::class,'allMenu']);
     Route::delete('/delete-menu/{id}',[MenuController::class,'destroy']);
     Route::get('/menu/{id}',[MenuController::class,'getMenuById']);
-    
+    Route::post('/add-staff',[StaffController::class,'insertStaff']);
+    Route::get('/staff/{id}',[StaffController::class,'getStaffById']);
+    Route::get('/allStaff',[StaffController::class,'getAllStaff']);
+    Route::patch('/updateStaff/{id}',[StaffController::class,'updateStaff']);
+    Route::delete('/deleteStaff/{id}',[StaffController::class,'destroy']);
    
     
 });

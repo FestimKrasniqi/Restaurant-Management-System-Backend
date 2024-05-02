@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Staff extends Model {
+class Shift  extends Model {
     use hasFactory;
 
     protected $fillable = [
@@ -15,8 +15,11 @@ class Staff extends Model {
         
     ];
 
-    public function shifts() {
-        return $this->belongsTo(Staff::class);
+    protected $table = 'shifts';
+
+    public function staff()
+    {
+        return $this->hasMany(Staff::class);
     }
 }
 

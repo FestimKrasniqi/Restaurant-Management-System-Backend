@@ -11,8 +11,9 @@ return new class extends Migration {
             $table->decimal('salary',8,2);
             $table->string('FullName');
             $table->enum('role',['chef','waiter','manager','cleaner','cuisiner'])->default('waiter');
-            //$table->unsignedBigInteger('shift_id');
-            //$table->foreign('shift_id')->references('id')->on('shifts');
+            $table->unsignedBigInteger('shift_id');
+            $table->foreign('shift_id')->references('id')->on('shifts');
+            $table->timestamps();
         });
     }
 }
