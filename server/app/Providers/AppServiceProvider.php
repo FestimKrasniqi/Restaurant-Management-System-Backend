@@ -20,5 +20,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-menu', function (User $user) {
             return $user->role === 'admin';
         });
+
+        Gate::define('manage-staff', function (User $user) {
+            return $user->role === 'admin';
+        });
     }
 }

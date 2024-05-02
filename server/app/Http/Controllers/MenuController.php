@@ -130,7 +130,7 @@ class MenuController {
     
     
         if ($req->has('category_name')) {
-            $menu->category()->update(['category_name' => $req->category_name]);
+            $menu->category()->update(['category_name' => $req->category_name ?? $menu->category->category_name]);
         }
     
         return response()->json(["message" => "Menu updated successfully","menu"=>$menu], 200);

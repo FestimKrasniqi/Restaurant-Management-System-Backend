@@ -15,12 +15,14 @@ class Staff extends Model {
         'salary'
     ];
 
-    protected $hidden = [
-        'salary'
-    ];
+   
 
-    public function shifts() {
-        return $this->hasMany(Shift::class);
+    protected $table = 'staff';
+
+    
+
+    public function shift() {
+        return $this->belongsTo(Shift::class);
     }
 }
 
