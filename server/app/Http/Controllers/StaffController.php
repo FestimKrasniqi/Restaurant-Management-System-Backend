@@ -76,8 +76,8 @@ class StaffController {
             'FullName' => 'sometimes|string|max:255',
             'salary' => 'sometimes|numeric',
             'role' => 'sometimes|string',
-            'start_time' => 'sometimes|date_format:H:i:s',
-            'end_time' => 'sometimes|date_format:H:i:s'
+            'start_time' => 'sometimes|date_format:H:i',
+            'end_time' => 'sometimes|date_format:H:i'
 
         ]);
 
