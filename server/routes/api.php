@@ -7,12 +7,14 @@ use App\Http\Middleware\Admin;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TableController;
 
 
 
 Route::post('/SignUp',[UserController::class,'register']);
 
 Route::post('/Login',[UserController::class,'Login']);
+
 
 Route::post('/Forgot-Password',[UserController::class,'Forgot']);
 Route::post('/Reset-Password',[UserController::class,'Reset']);
@@ -45,7 +47,11 @@ Route::middleware(Admin::class)->group(function () {
     Route::get('/allStaff',[StaffController::class,'getAllStaff']);
     Route::patch('/updateStaff/{id}',[StaffController::class,'updateStaff']);
     Route::delete('/deleteStaff/{id}',[StaffController::class,'destroy']);
-   
+    Route::post('/insertTable',[TableController::class,'insert']);
+    Route::get('/getAllTables',[TableController::class,'getAllTables']);
+    Route::get('/getTableById/{id}',[TableController::class,'getTableById']);
+    Route::patch('/updateTable/{id}',[TableController::class,'updateTable']);
+    Route::delete('/deleteTable/{id}',[TableController::class,'destroy']);
     
 });
 
