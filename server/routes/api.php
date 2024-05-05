@@ -9,6 +9,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SupplierController;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -54,7 +55,11 @@ Route::middleware(Admin::class)->group(function () {
     Route::patch('/updateTable/{id}',[TableController::class,'updateTable']);
     Route::delete('/deleteTable/{id}',[TableController::class,'destroy']);
     Route::get('/getReviews',[ReviewController::class,'getAllReviews']);
-    
+    Route::post('/insertSupplier',[SupplierController::class,'insertSupplier']);
+    Route::get('/getSupplier',[SupplierController::class,'getSupplier']);
+    Route::delete('/deleteSupplier/{id}',[SupplierController::class,'destroy']);
+    Route::get('/getSupplierById/{id}',[SupplierController::class,'getSupplierById']);
+    Route::patch('/updateSupplier/{id}',[SupplierController::class,'updateSupplier']);
 });
 
 

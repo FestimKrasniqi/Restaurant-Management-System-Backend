@@ -32,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-review',function(User $user){
         return $user->role === 'user';
         });
+
+        Gate::define('manage-supplier',function(User $user){
+            return $user->role === 'admin';
+            });
+    
     }
 }
