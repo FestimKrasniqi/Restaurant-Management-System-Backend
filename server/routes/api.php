@@ -8,7 +8,7 @@ use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
-
+use App\Http\Controllers\ReviewController;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -29,6 +29,7 @@ Route::middleware("auth:sanctum")->group(function (){
     Route::middleware(UserMiddleware::class)->group(function () {
     Route::get('/user1',[UserController::class,'User']);
     Route::get('/menus/{categoryName}', [MenuController::class, 'getMenuByCategory']);
+    Route::post('/create-Review',[ReviewController::class,'insertReview']);
 });
 
 
@@ -52,6 +53,7 @@ Route::middleware(Admin::class)->group(function () {
     Route::get('/getTableById/{id}',[TableController::class,'getTableById']);
     Route::patch('/updateTable/{id}',[TableController::class,'updateTable']);
     Route::delete('/deleteTable/{id}',[TableController::class,'destroy']);
+    Route::get('/getReviews',[ReviewController::class,'getAllReviews']);
     
 });
 
