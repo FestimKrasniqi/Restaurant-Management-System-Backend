@@ -28,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('manage-tables',function(User $user) {
             return $user->role === 'admin';
         });
+
+        Gate::define('manage-review',function(User $user){
+        return $user->role === 'user';
+        });
     }
 }
