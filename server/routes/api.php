@@ -10,6 +10,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\OrderController;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -31,6 +32,11 @@ Route::middleware("auth:sanctum")->group(function (){
     Route::get('/user1',[UserController::class,'User']);
     Route::get('/menus/{categoryName}', [MenuController::class, 'getMenuByCategory']);
     Route::post('/create-Review',[ReviewController::class,'insertReview']);
+    Route::post('/create-order',[OrderController::class,'insertOrder']);
+    Route::get('/getOrderById/{id}',[OrderController::class,'getOrderById']);
+    Route::delete('/deleteOrder/{id}',[OrderController::class,'destroy']);
+    Route::patch('/updateOrder/{id}',[OrderController::class,'updateOrder']);
+    Route::get('/index',[OrderController::class,'index']);
 });
 
 
@@ -60,6 +66,7 @@ Route::middleware(Admin::class)->group(function () {
     Route::delete('/deleteSupplier/{id}',[SupplierController::class,'destroy']);
     Route::get('/getSupplierById/{id}',[SupplierController::class,'getSupplierById']);
     Route::patch('/updateSupplier/{id}',[SupplierController::class,'updateSupplier']);
+    Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
 });
 
 
