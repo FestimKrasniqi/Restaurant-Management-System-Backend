@@ -161,7 +161,7 @@ class OrderController {
      function index () {
         $user = Auth::user();
 
-        $orders = Order::where('user_id',$user->id)->with('menu','user')->get();
+        $orders = Order::where('user_id',$user->id)->with('menu','user','bill1')->get();
         return response()->json($orders,200);
      }
 }

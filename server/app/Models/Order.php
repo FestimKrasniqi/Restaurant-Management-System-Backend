@@ -27,6 +27,10 @@ class Order extends Model {
     {
         return $this->belongsTo(Bill::class);
     }
+
+    public function bill1() {
+        return $this->hasOne(Bill::class);
+    }
 }
 
 ?>
