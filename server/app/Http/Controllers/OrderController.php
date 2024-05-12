@@ -64,9 +64,24 @@ class OrderController {
 
     function getAllOrders() {
 
-        $orders = Order::with('menu', 'user')->get();
+        $orders = Order::with('menu', 'user','bill')->get();
 
-      return response()->json($orders, 200);
+        foreach($orders as $order) {
+            $total_amount = $order->menu->price * $order->quantity;
+
+            $bill = new Bill([
+                'total_amount' => $total_amount
+            ]);
+
+            $order->bill()->associate($bill);
+            $bill->order()->save($order);
+           
+        }
+
+       
+        
+        
+        return response()->json($orders, 200);
     }
 
     function getOrderById(Request $req,$id) {
