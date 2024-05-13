@@ -65,7 +65,7 @@ class BookingController {
 
     public function getBookingById($id) {
 
-        $booking = Booking::find($id);
+        $booking = Booking::with('user')->find($id);
 
         if(!$booking) {
             return response()->json(['message'=>'Not found'],404);
