@@ -17,8 +17,215 @@ use App\Mail\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Cookie;
 
 
+/**
+ * @OA\Post(
+ *     path="/api/SignUp",
+ *     summary="User registration",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"first", "last", "email", "password", "confirm_password"},
+ *             @OA\Property(property="first", type="string"),
+ *             @OA\Property(property="last", type="string"),
+ *             @OA\Property(property="email", type="string", format="email"),
+ *             @OA\Property(property="password", type="string", format="password"),
+ *             @OA\Property(property="confirm_password", type="string", format="password"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful registration",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="data", ref="#/components/schemas/users"),
+ *             @OA\Property(property="status", type="boolean"),
+ *             @OA\Property(property="token", type="string"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="errors", type="object"),
+ *         ),
+ *     ),
+ * )
+ *
+ * @OA\Post(
+ *     path="/api/Login",
+ *     summary="User Login",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email"),
+ *             @OA\Property(property="password", type="string", format="password"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful Login",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="data", ref="#/components/schemas/users"),
+ *             @OA\Property(property="status", type="boolean"),
+ *             @OA\Property(property="token", type="string"),
+ *         ),
+ *     ),    
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="errors", type="object"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthenticated"),
+ *         ),
+ *     ),
+ * )
+ * * Forget user password.
+ * 
+ * @OA\Post(
+ *     path="/api/Forgot-Password",
+ *     summary="Forget user password",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email"},
+ *             @OA\Property(property="email", type="string", format="email"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Password reset email sent",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="Password reset email sent"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="User not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="User not found"),
+ *             @OA\Property(property="message", type="string", example="We couldn't find a user with that email address"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string"),
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         ),
+ *     ),
+ * )
+ * 
+ * * Reset user password.
+ * 
+ * @OA\Post(
+ *     path="/api/Reset-Password",
+ *     summary="Reset user password",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email", "password", "confirm_password"},
+ *             @OA\Property(property="email", type="string", format="email"),
+ *             @OA\Property(property="password", type="string", format="password"),
+ *             @OA\Property(property="confirm_password", type="string", format="password"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Password successfully updated",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="Password successfully updated"),
+ *             @OA\Property(property="token", type="string", description="Authentication token"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="User not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="User not found"),
+ *             @OA\Property(property="message", type="string", example="We couldn't find a user with that email address"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string"),
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         ),
+ *     ),
+ * )
+ * 
+ * 
+ * * Logout user and invalidate token.
+ * 
+ * @OA\Post(
+ *     path="/api/logout",
+ *     summary="Logout user and invalidate token",
+ *     tags={"Authentication"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Logout successful",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Logout successful"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         ),
+ *     ),
+ * )
+ * 
+ * /**
+ * Get all users.
+ * 
+ * @OA\Get(
+ *     path="/api/users",
+ *     summary="Get all users",
+ *     tags={"Users"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of users",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/users"),
+ *         ),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         ),
+ *     ),
+ * )
+ */
+ 
 
-
+ 
 
 
 class UserController{

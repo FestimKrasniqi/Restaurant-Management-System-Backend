@@ -18,5 +18,3 @@ Route::middleware([
     })->name('dashboard');
 });
 
-
-Route::post('/SignUp',[UserController1::class,'register']);
