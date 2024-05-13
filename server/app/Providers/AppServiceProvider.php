@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
@@ -44,6 +45,14 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('manage-order', function (User $user, Order $order) {
             return $user->id === $order->user_id;
+        });
+
+        Gate::define('create-booking',function(User $user) {
+            return $user->role === 'user';
+        });
+
+        Gate::define('manage-booking',function(User $user,Booking $booking){
+           return $user->id === $booking->user_id;
         });
     }
 }
