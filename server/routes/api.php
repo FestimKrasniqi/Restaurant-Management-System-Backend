@@ -11,6 +11,7 @@ use App\Http\Controllers\TableController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BookingController;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -37,6 +38,11 @@ Route::middleware("auth:sanctum")->group(function (){
     Route::delete('/deleteOrder/{id}',[OrderController::class,'destroy']);
     Route::patch('/updateOrder/{id}',[OrderController::class,'updateOrder']);
     Route::get('/index',[OrderController::class,'index']);
+    Route::post('/create-booking',[BookingController::class,'insertBooking']);
+    Route::get('/getBookingById/{id}',[BookingController::class,'getBookingById']);
+    Route::delete('/deleteBooking/{id}',[BookingController::class,'destroy']);
+    Route::get('/index',[BookingController::class,'index']);
+    Route::patch('/updateBooking/{id}',[BookingController::class,'updateBooking']);
 });
 
 
@@ -67,6 +73,7 @@ Route::middleware(Admin::class)->group(function () {
     Route::get('/getSupplierById/{id}',[SupplierController::class,'getSupplierById']);
     Route::patch('/updateSupplier/{id}',[SupplierController::class,'updateSupplier']);
     Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
+    Route::get('getAllBookings',[BookingController::class,'getAllBookings']);
 });
 
 
