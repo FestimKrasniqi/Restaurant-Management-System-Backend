@@ -389,7 +389,7 @@
                 "tags": [
                     "Authentication"
                 ],
-                "summary": "Logout user and invalidate token",
+                "summary": "Logout user",
                 "operationId": "40fc79633706f669a11fc268fbf93a29",
                 "responses": {
                     "200": {
@@ -424,12 +424,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
         "/api/users": {
@@ -469,13 +464,28 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         }
-    }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "oauth2_security_example": [
+                "read",
+                "write"
+            ],
+            "passport": [],
+            "sanctum": []
+        }
+    ]
 }

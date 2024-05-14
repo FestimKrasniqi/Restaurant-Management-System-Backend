@@ -179,9 +179,9 @@ use Illuminate\Support\Facades\Cookie;
  * 
  * @OA\Post(
  *     path="/api/logout",
- *     summary="Logout user and invalidate token",
+ *     summary="Logout user",
  *     tags={"Authentication"},
- *     security={{"bearerAuth":{}}},
+ *    
  *     @OA\Response(
  *         response=200,
  *         description="Logout successful",
@@ -205,7 +205,7 @@ use Illuminate\Support\Facades\Cookie;
  *     path="/api/users",
  *     summary="Get all users",
  *     tags={"Users"},
- *     security={{"bearerAuth":{}}},
+ *
  *     @OA\Response(
  *         response=200,
  *         description="List of users",
