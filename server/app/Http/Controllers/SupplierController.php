@@ -7,6 +7,147 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
+/**
+ * @OA\Post(
+ *     path="/api/insertSupplier",
+ *     summary="Insert a new supplier",
+ *     tags={"Supplier"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Supplier data",
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 @OA\Property(property="name", type="string", example="Supplier Name"),
+ *                 @OA\Property(property="phoneNumber", type="string", example="+38344123456"),
+ *                 @OA\Property(property="city", type="string", example="Supplier City")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Supplier created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier created successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error")
+ *         )
+ *     ),
+ * )
+ * 
+ * * @OA\Get(
+ *     path="/api/getSupplier",
+ *     summary="Get all suppliers",
+ *     tags={"Supplier"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(),
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Patch(
+ *     path="/api/updateSupplier/{id}",
+ *     summary="Update a supplier",
+ *     tags={"Supplier"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the supplier to update",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Supplier data",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="name", type="string", example="Updated Supplier Name"),
+ *             @OA\Property(property="phoneNumber", type="string", example="123456789"),
+ *             @OA\Property(property="city", type="string", example="Updated City"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Supplier updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier updated with success"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Supplier not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier doesnt exist"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Delete(
+ *     path="/api/deleteSupplier/{id}",
+ *     summary="Delete a supplier",
+ *     tags={"Supplier"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the supplier to delete",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Supplier deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier deleted successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Supplier not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier doesnt exist"),
+ *         )
+ *     ),
+ * )
+ * 
+ * 
+ * 
+ */
+
 
 class SupplierController  {
 
