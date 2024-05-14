@@ -8,6 +8,169 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @OA\Post(
+ *     path="/api/add-staff",
+ *     summary="Insert a new staff member",
+ *     tags={"Staff"},
+ *  
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Staff member data",
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 @OA\Property(property="FullName", type="string", example="John Doe"),
+ *                 @OA\Property(property="role", type="string", example="Manager"),
+ *                 @OA\Property(property="salary", type="number", format="float", example=2500.00),
+ *                 @OA\Property(property="end_time", type="string", format="time", example="17:00"),
+ *                 @OA\Property(property="start_time", type="string", format="time", example="09:00"),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Staff member added successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Staff added successfully")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false)
+ *         )
+ *     ),
+ * )
+ * 
+ *   @OA\Get(
+ *     path="/api/allStaff",
+ *     summary="Get all staff members",
+ *     tags={"Staff"},
+ *  
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/Staff"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Patch(
+ *     path="/api/updateStaff/{id}",
+ *     summary="Update staff member",
+ *     tags={"Staff"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the staff member to update",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Staff member data",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="FullName", type="string", example="John Doe"),
+ *             @OA\Property(property="salary", type="number", format="float", example=2000.00),
+ *             @OA\Property(property="role", type="string", example="Manager"),
+ *             @OA\Property(property="start_time", type="string", format="time", example="09:00"),
+ *             @OA\Property(property="end_time", type="string", format="time", example="17:00"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Staff updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Staff updated with success"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Staff not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Staff not found"),
+ *             @OA\Property(property="message", type="string", example="The staff member with the specified ID was not found"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         )
+ *     ),
+ * )
+ *
+ * @OA\Delete(
+ *     path="/api/deleteStaff/{id}",
+ *     summary="Delete staff member",
+ *     tags={"Staff"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the staff member to delete",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Staff deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Staff deleted with success"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Staff not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Staff not found"),
+ *             @OA\Property(property="message", type="string", example="The staff member with the specified ID was not found"),
+ *         )
+ *     ),
+ * )
+ * 
+ */
+
 
 class StaffController {
 
