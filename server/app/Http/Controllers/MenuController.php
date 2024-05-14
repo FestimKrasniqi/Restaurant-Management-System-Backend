@@ -10,6 +10,174 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @OA\Post(
+ *     path="/api/create-menu",
+ *     summary="Insert a new menu item",
+ *     tags={"Menu"},
+ *  
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Menu item data",
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 @OA\Property(property="name", type="string", example="Burger"),
+ *                 @OA\Property(property="description", type="string", example="Delicious burger"),
+ *                 @OA\Property(property="price", type="number", format="float", example=10.99),
+ *                @OA\Property(property="image_url", type="string", format="binary", example="base64-encoded-image"),
+ *                 @OA\Property(property="category_name", type="string", example="Main Course"),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Menu item created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Menu item created successfully")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false)
+ *         ),
+ *     ),
+ * )
+ * 
+ * @OA\Get(
+ *     path="/api/allMenus",
+ *     summary="Get all menu items",
+ *     tags={"Menu"},
+ *  
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/menu")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         ),
+ *     ),
+ *   )
+ *  @OA\Patch(
+ *     path="/api/updateMenu/{id}",
+ *     summary="Update a menu item",
+ *     tags={"Menu"},
+ *    
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the menu item to update",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Menu item data",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="name", type="string", example="Updated Burger"),
+ *             @OA\Property(property="description", type="string", example="Updated description"),
+ *             @OA\Property(property="price", type="number", format="float", example=15.99),
+ *            
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Menu updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Menu updated successfully"),
+ *             @OA\Property(property="menu", ref="#/components/schemas/menu"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Menu not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Menu not found"),
+ *             @OA\Property(property="message", type="string", example="The menu item with the specified ID was not found"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="errors", type="object"),
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Delete(
+ *     path="/api/delete-menu/{id}",
+ *     summary="Delete a menu item",
+ *     tags={"Menu"},
+ *  
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the menu item to delete",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Menu deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Menu deleted successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Menu not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Menu not found"),
+ *             @OA\Property(property="message", type="string", example="The menu item with the specified ID was not found"),
+ *         )
+ *     ),
+ * )
+ * 
+ 
+ */
+
+ 
+
+
 
 class MenuController {
 
