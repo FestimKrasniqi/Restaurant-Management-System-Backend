@@ -37,7 +37,7 @@ Route::middleware("auth:sanctum")->group(function (){
     Route::get('/getOrderById/{id}',[OrderController::class,'getOrderById']);
     Route::delete('/deleteOrder/{id}',[OrderController::class,'destroy']);
     Route::patch('/updateOrder/{id}',[OrderController::class,'updateOrder']);
-    Route::get('/index',[OrderController::class,'index']);
+    Route::get('/index1',[OrderController::class,'index']);
     Route::post('/create-booking',[BookingController::class,'insertBooking']);
     Route::get('/getBookingById/{id}',[BookingController::class,'getBookingById']);
     Route::delete('/deleteBooking/{id}',[BookingController::class,'destroy']);
