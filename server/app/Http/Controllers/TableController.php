@@ -7,6 +7,146 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * @OA\Post(
+ *     path="/api/insertTable",
+ *     summary="Insert a new table",
+ *     tags={"Table"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Table data",
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 @OA\Property(property="table_name", type="string", example="Table 1"),
+ *                 @OA\Property(property="capacity", type="integer", example=4),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Table created successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Table created successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *             @OA\Property(property="status", type="boolean", example=false),
+ *         )
+ *     ),
+ * )
+ * 
+ * * @OA\Get(
+ *     path="/api/getAllTables",
+ *     summary="Get all tables",
+ *     tags={"Table"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Patch(
+ *     path="/api/updateTable/{id}",
+ *     summary="Update a table",
+ *     tags={"Table"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the table to update",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         description="Table data",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="table_name", type="string", example="Table 1"),
+ *             @OA\Property(property="capacity", type="integer", example=4),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Table updated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Table updated successfully")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Validation error"),
+ *         )
+ *     ),
+ * )
+ * 
+ * * @OA\Delete(
+ *     path="/api/deleteTable/{id}",
+ *     summary="Delete a table",
+ *     tags={"Table"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the table to delete",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Table deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Table Deleted successfully"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ * )
+ * 
+ * 
+ */
+
+
 class TableController {
 
 function insert(Request $req) {
