@@ -144,7 +144,40 @@ use Illuminate\Http\Request;
  *     ),
  * )
  * 
- * 
+ * * @OA\Get(
+ *     path="/api/getSupplierById/{id}",
+ *     summary="Get supplier by ID",
+ *     tags={"Supplier"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the supplier",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/supplier"),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Supplier not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Supplier doesn't exist"),
+ *         )
+ *     ),
+ * )
  * 
  */
 

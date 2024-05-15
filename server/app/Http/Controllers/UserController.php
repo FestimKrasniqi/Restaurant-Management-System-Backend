@@ -222,6 +222,44 @@ use Illuminate\Support\Facades\Cookie;
  *         ),
  *     ),
  * )
+ * 
+ * * @OA\Get(
+ *     path="/api/user1",
+ *     summary="Get authenticated user information",
+ *     tags={"Users"},
+ *    
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/user"),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     ),
+ * )
+ * 
+ *  @OA\Get(
+ *     path="/api/admin",
+ *     summary="Get authenticated admin information",
+ *     tags={"Users"},
+ *    
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/user"),
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Unauthorized"),
+ *         )
+ *     )
+ * )
  */
  
 
