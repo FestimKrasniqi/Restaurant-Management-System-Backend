@@ -171,6 +171,64 @@ use Illuminate\Support\Facades\Storage;
  *         )
  *     ),
  * )
+ * * @OA\Get(
+ *     path="/api/menus/{categoryName}",
+ *     summary="Get menus by category",
+ *     tags={"Menu"},
+ *     @OA\Parameter(
+ *         name="categoryName",
+ *         in="path",
+ *         required=true,
+ *         description="Name of the category",
+ *         @OA\Schema(
+ *             type="string",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(ref="#/components/schemas/menu"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Category not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Category not found"),
+ *         )
+ *     ),
+ * )
+ 
+
+ * @OA\Get(
+ *     path="/api/menu/{id}",
+ *     summary="Get menu by ID",
+ *     tags={"Menu"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the menu",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/menu"),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Menu not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="error", type="string", example="Menu not found"),
+ *         )
+ *     ),
+ * )
  * 
  
  */

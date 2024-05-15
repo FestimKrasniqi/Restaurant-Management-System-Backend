@@ -143,6 +143,34 @@ use Illuminate\Support\Facades\Gate;
  *     ),
  * )
  * 
+ * * @OA\Get(
+ *     path="/api/getTableById/{id}",
+ *     summary="Get table by ID",
+ *     tags={"Table"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID of the table",
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(ref="#/components/schemas/table"),
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Table not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Table doesn't exist"),
+ *         )
+ *     ),
+ * )
+ * 
  * 
  */
 
