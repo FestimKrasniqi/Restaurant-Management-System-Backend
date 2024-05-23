@@ -251,6 +251,33 @@ use Illuminate\Support\Facades\Auth;
  *         )
  *     ),
  * )
+ *  @OA\Get(
+ *      path="/api/count",
+ *      operationId="getOrderCount",
+ *      tags={"Order"},
+ *      summary="Get the total number of orders",
+ *      @OA\Response(
+ *          response=200,
+ *          description="Successful operation",
+ *          @OA\JsonContent(
+ *              type="integer",
+ *          )
+ *      ),
+ * )
+ *  @OA\Get(
+ *      path="/api/sum",
+ *      operationId="getOrderSum",
+ *      tags={"Order"},
+ *      summary="Get the total sum of bill amounts for all orders",
+ *      @OA\Response(
+ *          response=200,
+ *          description="Successful operation",
+ *          @OA\JsonContent(
+ *              type="number",
+ *              format="double",
+ *          )
+ *      ),
+ * )
  * 
  */
 
@@ -287,11 +314,13 @@ class OrderController {
        }
 
 
+    
 
         $order = Order::create([
             'quantity' => $req->quantity,
             'phone_number' => $req->input('phoneNumber'),
             'address' => $req->input('address'),
+            
             
         ]);
 
@@ -307,23 +336,15 @@ class OrderController {
 
     function getAllOrders() {
 
-        $orders = Order::with('menu', 'user','bill')->get();
+        $orders = Order::with('menu', 'user')->get();
 
-        foreach($orders as $order) {
-            $total_amount = $order->menu->price * $order->quantity;
-
-            $bill = new Bill([
-                'total_amount' => $total_amount
-            ]);
-
-            $order->bill()->associate($bill);
-            $bill->order()->save($order);
-           
+        foreach ($orders as $order) {
+            $quantity = $order->quantity;
+            $price = $order->menu->price;
+            $order->bill = $quantity * $price;
+            $order->save();
         }
 
-       
-        
-        
         return response()->json($orders, 200);
     }
 
@@ -403,9 +424,27 @@ class OrderController {
 
      function index () {
         $user = Auth::user();
+    
+        $orders = Order::where('user_id',$user->id)->with('menu','user')->get();
 
-        $orders = Order::where('user_id',$user->id)->with('menu','user','bill1')->get();
+        foreach ($orders as $order) {
+            $quantity = $order->quantity;
+            $price = $order->menu->price;
+            $order->bill = $quantity * $price;
+        }
+        
         return response()->json($orders,200);
+     }
+
+     function count() {
+        $order = Order::count();
+
+        return response()->json($order);
+     }
+
+     function sum() {
+        $order = Order::sum('bill');
+        return response()->json($order);
      }
 }
 

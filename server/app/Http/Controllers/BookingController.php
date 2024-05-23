@@ -222,6 +222,21 @@ use Illuminate\Support\Facades\Auth;
     *     ),
     * )
 
+    * @OA\Get(
+    *      path="/api/count1",
+    *      operationId="getBookingCount",
+    *      tags={"Booking"},
+    *      summary="Get the total number of bookings",
+    *      @OA\Response(
+    *          response=200,
+    *          description="Successful operation",
+    *          @OA\JsonContent(
+    *              type="integer",
+    *          )
+    *      )
+    * )
+ *
+
 */
 
 
@@ -354,6 +369,12 @@ class BookingController {
         }
 
         return response()->json(['message'=>'Booking Updated with success'],200);
+    }
+
+    function count() {
+    $booking = Booking::count();
+
+    return response()->json($booking);
     }
 
 }

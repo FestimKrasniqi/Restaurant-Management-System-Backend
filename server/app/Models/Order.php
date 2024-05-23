@@ -23,14 +23,7 @@ class Order extends Model {
         return $this->belongsTo(Menu::class);
     }
 
-    public function bill()
-    {
-        return $this->belongsTo(Bill::class);
-    }
-
-    public function bill1() {
-        return $this->hasOne(Bill::class);
-    }
+   
 }
 
 ?>
