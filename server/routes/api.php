@@ -74,6 +74,9 @@ Route::middleware(Admin::class)->group(function () {
     Route::patch('/updateSupplier/{id}',[SupplierController::class,'updateSupplier']);
     Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
     Route::get('getAllBookings',[BookingController::class,'getAllBookings']);
+    Route::get('/count',[OrderController::class,'count']);
+    Route::get('/sum',[OrderController::class,'sum']);
+    Route::get('/count1',[BookingController::class,'count']);
 });
 
 

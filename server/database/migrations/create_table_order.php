@@ -12,6 +12,7 @@ public function up() {
         $table->unsignedBigInteger('user_id');
         $table->unsignedBigInteger('menu_id');
         $table->Integer('quantity');
+        $table->decimal('bill', 10, 2)->nullable();
         $table->timestamps();
 
         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

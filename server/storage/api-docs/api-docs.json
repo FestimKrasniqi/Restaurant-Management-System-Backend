@@ -419,6 +419,27 @@
                 }
             }
         },
+        "/api/count1": {
+            "get": {
+                "tags": [
+                    "Booking"
+                ],
+                "summary": "Get the total number of bookings",
+                "operationId": "getBookingCount",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/create-menu": {
             "post": {
                 "tags": [
@@ -1357,6 +1378,49 @@
                                         }
                                     },
                                     "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/count": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get the total number of orders",
+                "operationId": "getOrderCount",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/sum": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get the total sum of bill amounts for all orders",
+                "operationId": "getOrderSum",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "number",
+                                    "format": "double"
                                 }
                             }
                         }
