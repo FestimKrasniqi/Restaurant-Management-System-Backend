@@ -289,13 +289,24 @@ class StaffController {
 
         ]);
 
-        if($req->has('start_time')) {
-         $staff->shift()->update(['start_time' => $req->start_time ?? $staff->shift->start_time]);
-
+        if ($req->has('start_time')) {
+            $shift = Shift::firstOrCreate(
+                ['start_time' => $req->start_time],
+                ['end_time' => $staff->shift->end_time] 
+            );
+    
+            $staff->shift()->associate($shift);
+            $staff->save();
         }
-
-        if($req->has('end_time')) {
-            $staff->shift()->update(['end_time' => $req->end_time ?? $staff->shift->end_time]);
+    
+        if ($req->has('end_time')) {
+            $shift = Shift::firstOrCreate(
+                ['end_time' => $req->end_time],
+                ['start_time' => $staff->shift->start_time] 
+            );
+    
+            $staff->shift()->associate($shift);
+            $staff->save();
         }
 
         return response()->json(['message' => 'Staff updated with success'],200);

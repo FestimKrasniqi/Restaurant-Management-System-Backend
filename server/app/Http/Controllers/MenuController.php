@@ -356,7 +356,11 @@ class MenuController {
     
     
         if ($req->has('category_name')) {
-            $menu->category()->update(['category_name' => $req->category_name ?? $menu->category->category_name]);
+         
+            $category = Category::firstOrCreate(['category_name' => $req->category_name]);
+    
+            $menu->category()->associate($category);
+            $menu->save();
         }
     
         return response()->json(["message" => "Menu updated successfully","menu"=>$menu], 200);

@@ -413,7 +413,8 @@ class OrderController {
             if (!$menu) {
                 return response()->json(['message' => 'The menu item does not exist'], 404);
             }
-            $order->menu_id = $menu->id;
+            $order->menu()->associate($menu);
+            $order->save();
         }
         
 
