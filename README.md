@@ -1,6 +1,6 @@
 # Restaurant Management System Backend
 
-This project is built using Laravel, a PHP framework, and provides APIs to manage the various functionalities of a restaurant, including orders, bookings, menu management, and more.This project is based on distribution system course.
+This project is built using Laravel, a PHP framework, and provides APIs to manage the various functionalities of a restaurant, including orders, bookings, menu management, and more.This project is based on distributed systems course.
 
 ## Table of Contents
 
@@ -32,7 +32,6 @@ This project is built using Laravel, a PHP framework, and provides APIs to manag
 
 ```bash
 composer install
-npm install
 ```
 
 2. **Environment setup:**
