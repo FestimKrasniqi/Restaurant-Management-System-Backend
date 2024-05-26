@@ -1,6 +1,6 @@
 # Restaurant Management System Backend
 
-Welcome to the Restaurant Management System backend repository. This project is built using Laravel, a PHP framework, and provides APIs to manage the various functionalities of a restaurant, including orders, bookings, menu management, and more.
+This project is built using Laravel, a PHP framework, and provides APIs to manage the various functionalities of a restaurant, including orders, bookings, menu management, and more.This project is based on distribution system course.
 
 ## Table of Contents
 
@@ -107,6 +107,7 @@ Your server should now be running at `http://localhost:8000`.
 - `Shift` : Represents the schedule of staff members.
 - `Category` : Represents Restaurant categories that have many menu items.
 - `Review` : Represents a review made by the user.
+- `Supplier` : Represents supplier information in admin dashboard page.
 
 ## Migrations
 
@@ -121,6 +122,7 @@ Migrations are located in the `database/migrations` directory. Some important mi
 - `create_staff_table` : Creates the staff table.
 - `create_category_table` : Creates the category table.
 - `create_reviews_table` : Creates the reviews table.
+- `create_suppliers_table` : Creates the suppliers table.
 
 ## API Routes
 
@@ -215,6 +217,7 @@ For API testing we have used as a tool Postman which was very efficient and very
 ## Contributors
 
  [Festim Krasniqi](https://github.com/FestimKrasniqi)
+ 
  [Dominik Pllashniku](https://github.com/pllasha)
 
 
