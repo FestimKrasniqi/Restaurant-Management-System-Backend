@@ -429,6 +429,13 @@ class UserController{
 
     public function logout(Request $request)
     {
+        $token = $request->user()->currentAccessToken();
+
+   
+      if ($token) {
+        $token->delete();
+       }
+       
         $cookie = Cookie::forget('jwt');
     
         return response()->json([
