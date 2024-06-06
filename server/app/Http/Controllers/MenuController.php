@@ -243,7 +243,7 @@ class MenuController {
 
     
         $validate = Validator::make($req->all(), [
-         'name' => 'required|string|max:255',
+         'name' => 'required|string|max:255|unique:menu',
          'description' => 'required|string',
          'price' => 'required|numeric',
          'image_url' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',

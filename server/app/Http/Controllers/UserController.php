@@ -371,7 +371,7 @@ class UserController{
     $user->notify(new CustomResetPasswordNotification($token));
 
     return response()->json(['message' => 'Reset link sent to your email',
-            "token" => $user->createToken("forgot")->plainTextToken
+            
 
 ], 200);
 
@@ -410,7 +410,6 @@ class UserController{
     
         return response()->json([
             'status' => 'Password successfully updated',
-            'token' => $user->createToken("reset-password")->plainTextToken
         ], 200);
     }
 
@@ -461,11 +460,6 @@ class UserController{
     {
        
         $users = User::all();
-
-        foreach ($users as $user) {
-           
-            $user->is_active = $user->active == 1 ? true : false;
-        }
 
         return response()->json($users);
     }

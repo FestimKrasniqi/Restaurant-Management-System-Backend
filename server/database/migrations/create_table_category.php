@@ -13,7 +13,6 @@ return new class extends Migration {
        $table->string('category_name');
        $table->unsignedBigInteger('menu_id');
        $table->timestamps();
-       $table->foreign('menu_id')->references('id')->on('menu');
         });
     }
 

@@ -92,7 +92,7 @@ function insertReview(Request $req) {
    ]);
 
    if($validate->fails()) {
-    return response()->json(['message' => $validate->errors()->fails(),'status' => false],422);
+    return response()->json(['message' => $validate->errors()->first(),'status' => false],422);
    }
 
    if(!Gate::allows('manage-review')) {

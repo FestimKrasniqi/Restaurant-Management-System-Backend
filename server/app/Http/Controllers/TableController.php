@@ -180,7 +180,7 @@ class TableController {
 function insert(Request $req) {
 
 $validate = Validator::make($req->all(),[
-    'table_name' => 'required|string|max:255',
+    'table_name' => 'required|string|max:255|unique:table',
     'capacity' => 'required|numeric'
 ]);
 
@@ -229,7 +229,7 @@ $validate = Validator::make($req->all(),[
 ]);
 
 if($validate->fails()) {
-    return response()->json(['message' => $validate->errors()->fails(),'status' => false],422);
+    return response()->json(['message' => $validate->errors()->first(),'status' => false],422);
 }
 
 if(!Gate::allows('manage-tables')) {
