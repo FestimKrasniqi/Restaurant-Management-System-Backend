@@ -186,7 +186,7 @@ class SupplierController  {
 
 function insertSupplier(Request $req) {
     $validate = Validator::make($req->all(),[
-        'name' => 'required|string',
+        'name' => 'required|string|unique:suppliers',
         'phoneNumber' => 'required|string',
         'city' => 'required|string'
     ]);
