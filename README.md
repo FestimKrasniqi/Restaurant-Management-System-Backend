@@ -217,6 +217,6 @@ For API testing we have used as a tool Postman which was very efficient and very
 
  [Festim Krasniqi](https://github.com/FestimKrasniqi)
  
- [Dominik Pllashniku](https://github.com/pllasha)
+
 
 
