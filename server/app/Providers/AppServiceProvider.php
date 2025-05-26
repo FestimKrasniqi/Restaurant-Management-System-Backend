@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Gate;
 
+
 class AppServiceProvider extends ServiceProvider
 {
 

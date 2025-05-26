@@ -12,6 +12,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BookingController;
+use Illuminate\Auth\Notifications\VerifyEmail;
 
 
 Route::post('/SignUp',[UserController::class,'register']);
@@ -23,8 +24,22 @@ Route::post('/Forgot-Password',[UserController::class,'Forgot']);
 Route::post('/Reset-Password',[UserController::class,'Reset']);
 
 
+Route::get('email/verify/{id}/{hash}', function ($id, $hash) {
+    $user = App\Models\User::findOrFail($id);
 
-Route::middleware("auth:sanctum")->group(function (){
+    if (! hash_equals($hash, sha1($user->getEmailForVerification()))) {
+        throw new \Illuminate\Validation\ValidationException('Invalid verification link');
+    }
+
+    $user->markEmailAsVerified();
+
+    return response()->json(['message' => 'Email successfully verified.']);
+})->name('verification.verify');
+
+
+
+
+Route::middleware(["auth:sanctum"])->group(function (){
 
     Route::post('/logout',[UserController::class,'logout']);
     

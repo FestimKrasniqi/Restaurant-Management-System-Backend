@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Auth\Events\Registered;
 
 
 /**
@@ -294,7 +296,7 @@ class UserController{
         'confirm_password'=>Hash::make($req->confirm_password)
      ]);
        
-        
+     event(new Registered($user));
       
 
         return response()->json([
